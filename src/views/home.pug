@@ -1,4 +1,10 @@
 extend base
+include mixins/video
 
 block content
     h1 Welcome Home!
+
+    each video in videos
+        +video(video)
+    else
+        h4 sorry, nothing here.
