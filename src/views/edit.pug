@@ -1,0 +1,7 @@
+extend base
+
+block content 
+    h1 Edit #{video.title}
+    form(method="POST")
+        input(name="title",value=`${video.title}`,require)
+        input(type="submit")
