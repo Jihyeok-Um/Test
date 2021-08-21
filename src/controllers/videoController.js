@@ -7,7 +7,7 @@ export const trending = async(req,res) => {
 
 export const watch = (req,res) => {
     const { id } = req.params;
-    const video = videos[id-1];
+    const video = Video.findById(id);
     console.log(video);
     res.render("watch", {pageTitle:"watch", video});
 }
@@ -40,13 +40,13 @@ export const postUpload = async(req,res) => {
     const { title , description, hashtags } = req.body;
     try {
         await Video.create({
-
+            title,
             description,
             hashtags: hashtags.split(",").map((word) => `#${word}`),
         })
         return res.redirect("/");
     }
     catch (error) {
-        return res.render("upload", {errorMessage: error._message})
+        return res.render("upload", {pageTitle:"upload", errorMessage: error._message})
     }
 }
