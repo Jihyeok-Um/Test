@@ -18,6 +18,7 @@
   "homepage": "https://github.com/Jihyeok-Um/Test#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "mongoose": "^5.13.7",
     "pug": "^3.0.2"
   },
   "devDependencies": {
