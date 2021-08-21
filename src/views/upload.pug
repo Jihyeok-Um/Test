@@ -3,5 +3,7 @@ extend base
 block content 
     h1 upload video
     form(method="POST")
-        input(name="title",require)
+        input(name="title",placeholder="title",require)
+        input(name="description",placeholder="description",require)
+        input(name="hashtags",placeholder="hashtags",require)
         input(type="submit")

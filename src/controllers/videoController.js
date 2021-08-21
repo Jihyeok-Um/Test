@@ -1,14 +1,7 @@
-const videos = [
-    {
-        title: "First video",
-        id: 1
-    },
-    {
-        title: "Second video",
-        id: 2
-    }
-];
-export const trending = (req,res) => {
+import Video from "../models/Video"
+
+export const trending = async(req,res) => {
+    const videos = await Video.find({});
     res.render("home", {pageTitle:"home", videos});
 }
 
@@ -43,12 +36,17 @@ export const getUpload = (req,res) => {
     return res.render("upload", {pageTitle:"upload"});
 }
 
-export const postUpload = (req,res) => {
-    const { title } = req.body;
-    const video = {
+export const postUpload = async(req,res) => {
+    const { title , description, hashtags } = req.body;
+    await Video.create({
         title,
-        id: videos.length+1
-    }
-    videos.push(video);
+        description,
+        createdAt: Date.now(),
+        hashtags: hashtags.split(",").map((word) => `#${word}`),
+        meta: {
+            views: 0,
+            rating: 0,
+        }
+    })
     return res.redirect("/");
 }
