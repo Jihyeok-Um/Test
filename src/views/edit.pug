@@ -3,5 +3,7 @@ extend base
 block content 
     h1 Edit #{video.title}
     form(method="POST")
-        input(name="title",value=`${video.title}`,require)
+        input(name="title",value=`${video.title}`,require, maxlength=20)
+        input(name="description",value=`${video.description}`,require, maxlength=80)
+        input(name="hashtags",value=`${video.hashtags}`,require)
         input(type="submit")

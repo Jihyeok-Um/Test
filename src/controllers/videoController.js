@@ -2,29 +2,30 @@ import Video from "../models/Video"
 
 export const trending = async(req,res) => {
     const videos = await Video.find({});
+    console.log(videos);
     res.render("home", {pageTitle:"home", videos});
 }
 
-export const watch = (req,res) => {
+export const watch = async(req,res) => {
     const { id } = req.params;
-    const video = Video.findById(id);
-    console.log(video);
+    const video = await Video.findById(id);
     res.render("watch", {pageTitle:"watch", video});
 }
 
-export const getEdit = (req,res) => {
+export const getEdit = async(req,res) => {
     const { id } = req.params;
-    const video = videos[id-1];
+    const video = await Video.findById(id);
     return res.render("edit", {pageTitle:"edit", video});
 }
 
-export const postEdit = (req,res) => {
+export const postEdit = async(req,res) => {
     const { id } = req.params;
-    const { title } = req.body;
-    videos[id-1] = {
-        title,
-        id: id
-    }
+    const { title, description, hashtags} = req.body;
+    await Video.findByIdAndUpdate(id, {
+        title, 
+        description, 
+        hashtags: Video.formatHashtags(hashtags),
+    });
     return res.redirect("/");
 }
 
@@ -42,8 +43,8 @@ export const postUpload = async(req,res) => {
         await Video.create({
             title,
             description,
-            hashtags: hashtags.split(",").map((word) => `#${word}`),
-        })
+            hashtags: Video.formatHashtags(hashtags),
+        });
         return res.redirect("/");
     }
     catch (error) {
