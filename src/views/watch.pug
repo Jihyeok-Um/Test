@@ -1,5 +1,7 @@
 extend base
 
 block content
-    a(href=`${video.id}/edit`) edit video 
-    h1 Watching #{video.title}
+    h1 Watching #{video.title} 
+    a(href=`${video.id}/edit`) edit video
+    br
+    a(href=`${video.id}/delete`) delete video 

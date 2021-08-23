@@ -2,7 +2,6 @@ import Video from "../models/Video"
 
 export const trending = async(req,res) => {
     const videos = await Video.find({});
-    console.log(videos);
     res.render("home", {pageTitle:"home", videos});
 }
 
@@ -29,8 +28,10 @@ export const postEdit = async(req,res) => {
     return res.redirect("/");
 }
 
-export const removeVideo = (req,res) => {
-    return res.send("remove video");
+export const deleteVideo = async(req,res) => {
+    const { id } = req.params;
+    await Video.findByIdAndDelete(id);
+    return res.redirect("/");
 }
 
 export const getUpload = (req,res) => {
@@ -50,4 +51,16 @@ export const postUpload = async(req,res) => {
     catch (error) {
         return res.render("upload", {pageTitle:"upload", errorMessage: error._message})
     }
+}
+
+export const search = async(req,res) => {
+    let videos = []
+    const { search } = req.query;
+    if (search)
+        videos = await Video.find({
+            title: {
+            $regex: new RegExp(search, "i"),
+            },
+        });
+    return res.render("search",  {pageTitle:"search", videos});
 }
