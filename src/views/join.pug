@@ -1,0 +1,12 @@
+extend base
+
+block content 
+    header 
+        h1 Join
+    span=errorMessage
+    form(method="POST")
+        input(name="email", placeholder="email", required="True")
+        input(name="password", type="password", placeholder="password", required="True")
+        input(name="password2", type="password", placeholder="comfirm password", required="True")
+        input(name="name", placeholder="name", required="True")
+        input(type="submit", value="Join")
