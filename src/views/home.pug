@@ -2,10 +2,16 @@ extend base
 include mixins/video
 
 block content
-    a(href="/videos/upload") upload video
-    br
-    a(href="/search") Search video
-    h1 Welcome Home!
+    header
+            h1=pageTitle
+    nav
+        ul
+            li
+                a(href="/videos/upload") Upload Video
+            li
+                a(href="/") Home
+            li
+                a(href="/search") Search    
 
     each video in videos
         +video(video)
