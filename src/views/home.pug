@@ -11,9 +11,15 @@ block content
             li
                 a(href="/") Home
             li
-                a(href="/search") Search    
-            li
-                a(href="/join") Join
+                a(href="/search") Search
+            if (!loggedIn)    
+                li
+                    a(href="/join") Join
+                li
+                    a(href="/login") Login
+            else 
+                li
+                    a(href="/logout") Log Out 
 
     each video in videos
         +video(video)
