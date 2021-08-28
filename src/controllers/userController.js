@@ -114,9 +114,23 @@ export const finishGithubLogin = async(req,res) => {
       req.session.user = existingUser;
       return res.redirect("/");
     } else {
-      return res.redirect("/login");
+      const user = await User.create({
+        name: userData.name,
+        username: userData.login,
+        email: emailObj.email,
+        password: "",
+        socialOnly: true,
+        location: userData.location,
+      });
+      req.session.loggedIn = true;
+      req.session.user = user;
+      return res.redirect("/");
     }
   } else {
     return res.redirect("/login");
   }
-};
+}
+
+export const startGoogleLogin = (req,res) => {
+  res.redirect("/");
+}
