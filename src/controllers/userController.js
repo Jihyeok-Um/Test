@@ -6,6 +6,7 @@ export const getJoin = (req,res) => {
     return res.render("join", {pageTitle:"Join"});
 }
 export const postJoin = async(req,res) => {
+  const file = req.file;
     const {email, password, password2, name, username } = req.body;
     if (password !== password2) {
         return res.status(400).render("join", {
@@ -22,6 +23,7 @@ export const postJoin = async(req,res) => {
       }
     await User.create({
         email,
+        fileUrl:file.path,
         password,
         name,
         username,
@@ -56,13 +58,11 @@ export const getEdit = (req,res) => {
 }
 
 export const postEdit = async(req,res) => {
-  const { _id } = req.session.user;
+  const file = req.file;
+  const { _id, fileUrl } = req.session.user;
   const { username, email } = req.body;
-  const exists = await User.exists({ username }, { email });
-  if (exists) {
-    return res.render("edit-profile", {pageTitle: "edit-profile", errorMessage: "email and username is exist!"});
-  }
   const updatedUser = await User.findByIdAndUpdate(_id, {
+    fileUrl: file ? file.path : fileUrl,
     username,
     email,
     },
@@ -116,6 +116,7 @@ export const finishGithubLogin = async(req,res) => {
         },
       })
     ).json();
+    console.log(userData);
     const emailData = await (
       await fetch(`${apiUrl}/user/emails`, {
         headers: {
@@ -138,6 +139,8 @@ export const finishGithubLogin = async(req,res) => {
         name: userData.name,
         username: userData.login,
         email: emailObj.email,
+        password: "",
+        fileUrl: userData.avatar_url,
       });
       req.session.loggedIn = true;
       req.session.user = user;

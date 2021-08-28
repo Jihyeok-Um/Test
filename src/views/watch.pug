@@ -2,6 +2,9 @@ extend base
 
 block content
     h1 Watching #{video.title} 
+    div 
+        video(src="/" + video.fileUrl, controls)
+
     a(href=`${video.id}/edit`) edit video
     br
     a(href=`${video.id}/delete`) delete video 

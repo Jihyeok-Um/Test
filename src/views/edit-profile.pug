@@ -3,7 +3,10 @@ extend base
 block content
     h1 Edit Profile
     span=errorMessage
-    form(method="POST")
+    img(src="/" + user.fileUrl, width="100", height="100")
+    form(method="POST", enctype="multipart/form-data")
+        label(for="image") Image File
+        input(type="file", accept="image/*", id="image", name="image")
         input(name="email", placeholder="email", required="True", value=user.email)
         input(name="username", placeholder="name", required="True" value=user.username)
         input(type="submit", value="Edit")
