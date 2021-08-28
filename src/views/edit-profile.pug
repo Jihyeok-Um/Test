@@ -1,0 +1,8 @@
+extend base
+
+block content
+    h1 Edit Profile
+    form(method="POST")
+        input(name="email", placeholder="email", required="True", value=user.email)
+        input(name="name", placeholder="name", required="True" value=user.username)
+        input(type="submit", value="Edit")

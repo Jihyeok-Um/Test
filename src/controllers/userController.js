@@ -6,7 +6,7 @@ export const getJoin = (req,res) => {
     return res.render("join", {pageTitle:"Join"});
 }
 export const postJoin = async(req,res) => {
-    const {email, password, password2, name } = req.body;
+    const {email, password, password2, name, username } = req.body;
     if (password !== password2) {
         return res.status(400).render("join", {
           pageTitle:"Join",
@@ -23,7 +23,8 @@ export const postJoin = async(req,res) => {
     await User.create({
         email,
         password,
-        name
+        name,
+        username,
     })
     return res.redirect("login");
 }
@@ -50,9 +51,14 @@ export const logOutUser = (req,res) => {
   return res.redirect("/");
 }
 
-export const editUser = (req,res) => {
-    return res.send("edit user");
+export const getEdit = (req,res) => {
+    return res.render("edit-profile", {pageTitle: "edit-profile"});
 }
+
+export const postEdit = (req,res) => {
+  return res.redirect("/");
+}
+
 export const removeUser = (req,res) => {
     return res.send("remove user");
 }
@@ -118,9 +124,6 @@ export const finishGithubLogin = async(req,res) => {
         name: userData.name,
         username: userData.login,
         email: emailObj.email,
-        password: "",
-        socialOnly: true,
-        location: userData.location,
       });
       req.session.loggedIn = true;
       req.session.user = user;
