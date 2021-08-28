@@ -1,8 +1,8 @@
 import express from "express";
-import { getEdit , removeUser, logOutUser ,startGithubLogin, finishGithubLogin, startGoogleLogin} from "../controllers/userController";
+import { getEdit, postEdit, removeUser, logOutUser ,startGithubLogin, finishGithubLogin, startGoogleLogin} from "../controllers/userController";
 
 const userRouter = express.Router();
-userRouter.get("/edit", getEdit);
+userRouter.route("/edit").get(getEdit).post(postEdit);
 userRouter.get("/remove", removeUser);
 userRouter.get("/logout", logOutUser);
 userRouter.get("/github/start", startGithubLogin);
