@@ -1,5 +1,5 @@
 import express from "express";
-import { getEdit, postEdit, removeUser, logOutUser ,startGithubLogin, finishGithubLogin, startGoogleLogin} from "../controllers/userController";
+import { getEdit, postEdit, removeUser, logOutUser ,startGithubLogin, finishGithubLogin, startGoogleLogin, viewProfile } from "../controllers/userController";
 import { imageFiles } from "../middlewares";
 
 const userRouter = express.Router();
@@ -9,6 +9,6 @@ userRouter.get("/logout", logOutUser);
 userRouter.get("/github/start", startGithubLogin);
 userRouter.get("/github/finish", finishGithubLogin);
 userRouter.get("/google/start", startGoogleLogin);
-
+userRouter.get("/:id", viewProfile);
 
 export default userRouter;

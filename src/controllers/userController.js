@@ -154,3 +154,7 @@ export const finishGithubLogin = async(req,res) => {
 export const startGoogleLogin = (req,res) => {
   res.redirect("/");
 }
+
+export const viewProfile = (req,res) => {
+  res.render("profile", {pageTitle: "myProfile"});
+}
