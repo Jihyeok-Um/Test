@@ -4,6 +4,8 @@ const path = require("path");
 module.exports = {
   entry: "./src/client/js/main.js",
   mode: "development",
+  watch: true,
+  clean: true,
   plugins: [new MiniCssExtractPlugin({
     filename: "css/styles.css",
   })],
